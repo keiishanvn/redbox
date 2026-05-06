@@ -9,6 +9,9 @@ include '../config/koneksi.php';
 
 // Total produk (DINAMIS)
 $total = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FROM produk"));
+
+$queryDiskon = mysqli_query($conn, "SELECT COUNT(*) as total FROM produk WHERE diskon > 0");
+$diskon = mysqli_fetch_assoc($queryDiskon);
 ?>
 
 <!DOCTYPE html>
@@ -179,7 +182,9 @@ $total = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FROM p
             </div>
             <div>
                 <p class="text-sm font-semibold">Produk Promo</p>
-                <h2 class="text-3xl font-bold"><?php echo $total['total']; ?></h2>
+                <h2 class="text-3xl font-bold">
+    <?= $diskon['total'] ?? 0 ?>
+</h2>
                 <p class="text-xs font-bold text-gray-600">Produk</p>
             </div>
         </div>
